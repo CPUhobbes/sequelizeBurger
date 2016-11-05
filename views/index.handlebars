@@ -1,0 +1,41 @@
+<div class="mainContainer">
+
+    <div class="center"><img  src="assets/img/logo.png" alt="Burger Logo"></div>
+    <div class="eatingArea">
+      <div class="left">
+        <p class="headerText"> Stuff To Eat</p>
+        {{#each burgers}}
+          {{#unless this.devoured}}
+          <form action="/update/{{this.id}}?_method=PUT" method="POST">
+            <p class="burgerBox"> <img class="foodIcon" src="assets/img/burger.png" alt="Burger Logo">{{this.burger_name}} 
+                  <button type="submit" class="eatButton burgerButton">Eat!</button>
+                </p>
+            </form>
+            
+          {{/unless}}
+        {{/each}} 
+      </div>
+      <div class="right">
+        <p class="headerText"> Well I'm Full</p>
+        {{#each burgers}}
+          {{#if this.devoured}}
+            <form action="/delete/{{this.id}}?_method=DELETE" method="POST">
+            <p class="burgerBox"> <img class="foodIcon" src="assets/img/emptyPlate.png" alt="Burger Logo">{{this.burger_name}}  
+            <button type="submit" class="deleteButton burgerButton">Clean UP!</button>
+                </p>
+            </form>
+          {{/if}}
+        {{/each}} 
+      </div>
+    </div>
+     
+    <div class="center">
+      <form action="/create" method="POST">
+        <div>
+          <input type="text" name="burger" placeholder="Order Here!">
+        </div>
+        <div>
+          <button type="submit" class="orderButton">Make Me a Burger!</button>
+        </div>
+      </form>
+  </div>

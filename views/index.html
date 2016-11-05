@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="../public/assets/css/reset.css">
+	<link rel="stylesheet" type="text/css" href="../public/assets/css/style.css">
+</head>
+<body>
+	<div class="mainContainer">
+		<div class="center"><img src="../public/assets/img/logo.png" alt="Burger Logo"></div>
+		<div class="center">
+			<span class="left">
+				<p class="headerText"> Stuff To Eat</p>
+				
+			</span>
+			<span class="right">
+				<p class="headerText"> Well I'm Full</p>
+				
+			</span>
+		</div>
+		<div class="lineBreak"></div>
+		<div>
+			<span class="left">
+				<p class="burgerBox">
+					<img src="../public/assets/img/burger.png" alt="Burger Logo" width="50px" height="50px">
+				</p>
+				<p class="burgerBox">
+					<img src="../public/assets/img/burger.png" alt="Burger Logo" width="50px" height="50px">
+				</p>
+				
+			</span>
+			<span class="right">
+				<p class="burgerBox">
+					<img src="../public/assets/img/burger.png" alt="Burger Logo" width="50px" height="50px">
+				</p>
+				<p class="burgerBox">
+					<img src="../public/assets/img/burger.png" alt="Burger Logo" width="50px" height="50px">
+				</p>
+				
+			</span>
+		</div>
+		<div class="lineBreak"></div>
+		<div class="center">
+			<form action="/update/{{this.id}}?_method=PUT" method="POST">
+				<div>
+					<input type="text" name="inputBox" placeholder="Order Here!">
+				</div>
+          		<div>
+          			<button type="submit" class="orderButton">Make Me a Burger!</button>
+          		</div>
+        	</form>
+		</div>
+	</div>
+
+
+
+
+</body>
+</html>
