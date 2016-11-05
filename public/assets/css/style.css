@@ -107,7 +107,7 @@ input[type=text] {
 }
 
 .eatingArea{
-	overflow:auto;
+	overflow:hidden;
 }
 
 /*Placeholder text for different browsers */
