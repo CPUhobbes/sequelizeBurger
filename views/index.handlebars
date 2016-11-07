@@ -7,9 +7,10 @@
         {{#each burgers}}
           {{#unless this.devoured}}
           <form action="/update/{{this.id}}?_method=PUT" method="POST">
-            <p class="burgerBox"> <img class="foodIcon" src="assets/img/burger.png" alt="Burger Logo">{{this.burger_name}} 
+            <div class="burgerBox"> <img class="foodIcon" src="assets/img/burger.png" alt="Burger Logo">{{this.burger_name}} 
                   <button type="submit" class="eatButton burgerButton">Eat!</button>
-                </p>
+                  <div><input type="textbox" name="customer"></div>
+                </div>
             </form>
             
           {{/unless}}

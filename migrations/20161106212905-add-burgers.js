@@ -43,9 +43,9 @@ module.exports = {
 
         return models.Burger.destroy({where:{burger_name: removeList}})
         .then(function(recordsDestroyed){
-          
+
           var newKey = results-(recordsDestroyed-1) ;
-          console.log(results, newKey);
+
           var sequelize = new Sequelize('burgers_db', 'root', '', {dialect: 'mysql'});
           return sequelize.query('ALTER TABLE Burgers AUTO_INCREMENT = '+newKey);
       })

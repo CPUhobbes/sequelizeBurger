@@ -7,24 +7,32 @@ var models = require('../models');
 
 var sequelizeConnection = models.sequelize;
 
-
 router.get('/', function (req, res) {
-	// return sequelizeConnection.query('SET FOREIGN_KEY_CHECKS = 0')
 
-
-	// .then(function(){
 	return sequelizeConnection.sync()
-	//})
+
 
 	.then(function(){
+		// return models.Customer.findAll()
+
 		return models.Burger.findAll()
-	
-
 	})
-	.then(function(results){
+	.then(function(customers){
 
-		var burgerObj = {burgers:results};
+		// customers.forEach(function(value, index){
+
+		// 	value.getBurger()
+
+		// 	.then(function(results){
+		// 		console.log(results.dataValues);
+		// 	})
+
+
+		// })
+		var burgerObj = {burgers:customers};
 		return res.render('index', burgerObj);
+
+		
 	})
 
 });
@@ -59,6 +67,28 @@ router.put('/update/:id', function (req, res) {
 	// .then(function(){
 	return sequelizeConnection.sync()
 	//})
+
+	.then(function(){
+
+		return models.Customer.create(
+		{
+			customerName:req.body.customer,
+
+		})
+	})
+
+	.then(function(aCustomer){
+
+		return models.Burger.findOne({
+			where: {
+				id:req.params.id
+			}
+		})
+		.then(function(aBurger){
+			return aCustomer.setBurger(aBurger);
+		})
+
+	})
 
 	.then(function(){
 
