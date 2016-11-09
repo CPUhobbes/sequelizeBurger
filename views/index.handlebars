@@ -5,9 +5,9 @@
       <div class="left">
         <p class="headerText"> Stuff To Eat</p>
         {{#each burgers}}
-          {{#unless this.devoured}}
-          <form action="/update/{{this.id}}?_method=PUT" method="POST">
-            <div class="burgerBox"> <img class="foodIcon" src="assets/img/burger.png" alt="Burger Logo">{{this.burger_name}} 
+          {{#unless this.Burger.devoured}}
+          <form action="/update/{{this.Burger.id}}/{{this.id}}?_method=PUT" method="POST">
+            <div class="burgerBox"> <img class="foodIcon" src="assets/img/burger.png" alt="Burger Logo">{{this.Burger.burger_name}} 
                   <button type="submit" class="eatButton burgerButton">Eat!</button>
                   <div><input type="textbox" name="customer"></div>
                 </div>
@@ -19,9 +19,9 @@
       <div class="right">
         <p class="headerText"> Well I'm Full</p>
         {{#each burgers}}
-          {{#if this.devoured}}
-            <form action="/delete/{{this.id}}?_method=DELETE" method="POST">
-            <p class="burgerBox"> <img class="foodIcon" src="assets/img/emptyPlate.png" alt="Burger Logo">{{this.burger_name}}  
+          {{#if this.Burger.devoured}}
+            <form action="/delete/{{this.Burger.id}}/{{this.id}}?_method=DELETE" method="POST">
+            <p class="burgerBox"> <img class="foodIcon" src="assets/img/emptyPlate.png" alt="Burger Logo">{{this.Burger.burger_name}} was eaten by: {{this.customerName}}  
             <button type="submit" class="deleteButton burgerButton">Clean UP!</button>
                 </p>
             </form>

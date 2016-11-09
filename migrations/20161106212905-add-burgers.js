@@ -5,7 +5,7 @@ var models = require("../models");
 module.exports = {
   up: function (queryInterface, Sequelize) {
 
-    return models.Burger.bulkCreate([
+    return models.Burger.bulkCreate([ //queryInter. bulkCreate (tablename, dataArr)
       {
         burger_name:"Cheeseburger",
         devoured:"0"

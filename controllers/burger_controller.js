@@ -15,10 +15,9 @@ router.get('/', function (req, res) {
 	.then(function(){
 		// return models.Customer.findAll()
 
-		return models.Burger.findAll()
+		return models.Customer.findAll({ include: [ models.Burger ] })
 	})
-	.then(function(customers){
-
+	.then(function(results){
 		// customers.forEach(function(value, index){
 
 		// 	value.getBurger()
@@ -29,7 +28,7 @@ router.get('/', function (req, res) {
 
 
 		// })
-		var burgerObj = {burgers:customers};
+		var burgerObj = {burgers:results};
 		return res.render('index', burgerObj);
 
 		
@@ -48,11 +47,21 @@ router.post('/create', function (req, res) {
 
 	.then(function(){
 
-		models.Burger.create(
+		models.Customer.create(
 		{
-			burger_name: req.body.burger,
-			devoured: '0'
-		});
+			Burger:{
+				burger_name: req.body.burger,
+				devoured: '0'
+			},
+			customerName: ""
+			
+		},
+		{
+			include:[models.Burger]
+
+		}
+
+		);
 
 		return res.redirect('/');
 	
@@ -60,54 +69,67 @@ router.post('/create', function (req, res) {
 
 });
 
-router.put('/update/:id', function (req, res) {
+router.put('/update/:burgID/:custID/', function (req, res) {
 	// return sequelizeConnection.query('SET FOREIGN_KEY_CHECKS = 0')
-
+	// console.log(req.params.id,"##########")
 
 	// .then(function(){
 	return sequelizeConnection.sync()
 	//})
 
+	// .then(function(){
+
+	// 	return models.Customer.create(
+	// 	{
+	// 		customerName:req.body.customer,
+
+	// 	})
+	// })
+
+	//.then(function(aCustomer){
+
+		// return models.Burger.findOne({
+		// 	where: {
+		// 		id:req.params.id
+		// 	}
+		// })
+		// .then(function(aBurger){
+		// 	return aCustomer.setBurger(aBurger);
+		// })
+
+	//})
+
 	.then(function(){
 
-		return models.Customer.create(
-		{
-			customerName:req.body.customer,
-
-		})
-	})
-
-	.then(function(aCustomer){
-
-		return models.Burger.findOne({
-			where: {
-				id:req.params.id
-			}
-		})
-		.then(function(aBurger){
-			return aCustomer.setBurger(aBurger);
-		})
-
-	})
-
-	.then(function(){
-
-		models.Burger.update(
+		return models.Burger.update(
 		{
 			devoured: '1'
 		}, 
 		{
 			where: {
-				id:req.params.id
+				id:req.params.burgID
 			}
-		});
-
+		})
+	})
+	.then(function(){
+		return models.Customer.update(
+		{
+			customerName: req.body.customer
+		}, 
+		{
+			where: {
+				id:req.params.custID
+			}
+		})
+	})
+	.then(function(){
 		return res.redirect('/');
+	})
+
 	
-	});
 });
 
-router.delete('/delete/:id', function (req, res) {
+router.delete('/delete/:burgID/:custID/', function (req, res) {
 	// return sequelizeConnection.query('SET FOREIGN_KEY_CHECKS = 0')
 
 
@@ -117,16 +139,26 @@ router.delete('/delete/:id', function (req, res) {
 
 	.then(function(){
 
-		models.Burger.destroy( 
+		return models.Burger.destroy( 
 		{
 			where: {
-				id:req.params.id
+				id:req.params.burgID
 			}
-		});
+		})
+	})
+	.then(function(){
+		return models.Customer.destroy({
+			where:{
+				id:req.params.custID
+			}
 
+		})
+
+	})
+	.then(function(){
 		return res.redirect('/');
-	
-	});
+	})
+
 });
 
 module.exports = router;
